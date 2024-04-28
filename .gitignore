@@ -3,3 +3,6 @@
 =0.11.3
 peft_pretraining/__pycache__/
 wandb/
+*.out
+outputs/
+errors/
