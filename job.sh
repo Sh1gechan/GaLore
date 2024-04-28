@@ -3,11 +3,18 @@
 #SBATCH -N 1
 #SBATCH -J galore
 #SBATCH --time=72:00:00
+#SBATCH --output outputs/%j.out
+#SBATCH --error errors/%j.err
 
-# 環境設定
+
 . /etc/profile.d/modules.sh
 module load cuda/11.8
 module load cudnn/cuda-11.x/8.9.0
+
+source .env/bin/activate
+
+export MASTER_ADDR=$(/usr/sbin/ip a show | grep inet | grep 192.168.205 | head -1 | cut -d " " -f 6 | cut -d "/" -f 1)
+export MASTER_PORT=$((10000 + ($SLURM_JOBID % 50000)))
 
 torchrun --standalone --nproc_per_node 1 torchrun_main.py \
     --model_config configs/llama_7b.json \
