@@ -1,0 +1,163 @@
+{
+    "os": "Linux-5.4.0-176-generic-x86_64-with-glibc2.2.5",
+    "python": "3.8.5",
+    "heartbeatAt": "2024-04-28T08:47:18.088645",
+    "startedAt": "2024-04-28T08:47:17.413719",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--model_config",
+        "configs/llama_7b.json",
+        "--lr",
+        "0.005",
+        "--galore_scale",
+        "0.25",
+        "--rank",
+        "1024",
+        "--update_proj_gap",
+        "500",
+        "--batch_size",
+        "16",
+        "--total_batch_size",
+        "512",
+        "--activation_checkpointing",
+        "--num_training_steps",
+        "150000",
+        "--warmup_steps",
+        "15000",
+        "--weight_decay",
+        "0",
+        "--grad_clipping",
+        "1.0",
+        "--dtype",
+        "bfloat16",
+        "--eval_every",
+        "1000",
+        "--single_gpu",
+        "--optimizer",
+        "galore_adamw8bit_per_layer"
+    ],
+    "state": "running",
+    "program": "torchrun_main.py",
+    "codePathLocal": "torchrun_main.py",
+    "codePath": "torchrun_main.py",
+    "git": {
+        "remote": "https://github.com/Sh1gechan/GaLore.git",
+        "commit": "1b36c33782bdd74a4d6a4f51bc626ef67f51011f"
+    },
+    "email": "U.bolt2170@gmail.com",
+    "root": "/home/ishida/GaLore",
+    "host": "titanv",
+    "username": "ishida",
+    "executable": "/home/ishida/GaLore/.env/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "cpu_freq": {
+        "current": 1179.9148125,
+        "min": 1000.0,
+        "max": 3500.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 1000.048,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1000.0,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 999.998,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1000.02,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1192.174,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1000.555,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 2745.015,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1364.953,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1000.003,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1000.151,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 999.997,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1000.002,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1021.556,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1000.239,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1523.482,
+            "min": 1000.0,
+            "max": 3500.0
+        },
+        {
+            "current": 1030.444,
+            "min": 1000.0,
+            "max": 3500.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 232.691650390625,
+            "used": 24.00342559814453
+        }
+    },
+    "gpu": "NVIDIA TITAN V",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA TITAN V",
+            "memory_total": 12884901888
+        },
+        {
+            "name": "NVIDIA TITAN V",
+            "memory_total": 12884901888
+        }
+    ],
+    "memory": {
+        "total": 92.97803497314453
+    }
+}

@@ -82,10 +82,17 @@ class GaLoreProjector:
             
         U, s, Vh = torch.linalg.svd(matrix, full_matrices = False)
         
+        # prob = torch.softmax(s, dim=0)
+        # n_rank = min(rank, prob.size(0))
+        # indices = torch.multinomial(prob, n_rank, replacement=False)
+
+
         #make the smaller matrix always to be orthogonal matrix
         if type=='right':
             A = U[:, :rank] @ torch.diag(s[:rank])
             B = Vh[:rank, :]
+            # A = U[:, indices] @ torch.diag(s[indices])
+            # B = Vh[indices, :]
             
             if not float_data:
                 B = B.to(original_device).type(original_type)
@@ -93,6 +100,8 @@ class GaLoreProjector:
         elif type=='left':
             A = U[:, :rank]
             B = torch.diag(s[:rank]) @ Vh[:rank, :]
+            # A = U[:, indices]
+            # B = torch.diag(s[indices]) @ Vh[indices, :]
             if not float_data:
                 A = A.to(original_device).type(original_type)
             return A

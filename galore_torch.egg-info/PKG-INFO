@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: galore-torch
+Version: 1.0
+Summary: GaLore: Memory-Efficient LLM Training by Gradient Low-Rank Projection
+Home-page: https://github.com/jiaweizzhao/GaLore
+Author: Jiawei Zhao
+Author-email: jiawei@caltech.edu
+License: Apache 2.0
+Description: UNKNOWN
+Platform: UNKNOWN
