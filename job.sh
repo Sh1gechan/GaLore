@@ -32,4 +32,6 @@ torchrun --standalone --nproc_per_node 1 torchrun_main.py \
     --dtype bfloat16 \
     --eval_every 1000 \
     --single_gpu \
-    --optimizer galore_adamw8bit_per_layer
+    --optimizer galore_adamw8bit_per_layer \
+    --use_prob_selection
+    
