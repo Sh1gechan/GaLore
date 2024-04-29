@@ -1,3 +1,4 @@
+LICENSE
 README.md
 setup.py
 galore_torch/__init__.py
