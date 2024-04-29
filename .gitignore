@@ -1,4 +1,4 @@
-/.env
+.env/
 .python-version
 =0.11.3
 peft_pretraining/__pycache__/
@@ -6,3 +6,4 @@ wandb/
 *.out
 outputs/
 errors/
+galore_torch.egg-info/
