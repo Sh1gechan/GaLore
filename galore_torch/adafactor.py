@@ -107,8 +107,7 @@ class Adafactor(Optimizer):
         weight_decay=0.0,
         scale_parameter=True,
         relative_step=True,
-        warmup_init=False,
-        use_prob_selection=False
+        warmup_init=False
     ):
         require_version("torch>=1.5.0")  # add_ with alpha
         if lr is not None and relative_step:
@@ -125,8 +124,7 @@ class Adafactor(Optimizer):
             "weight_decay": weight_decay,
             "scale_parameter": scale_parameter,
             "relative_step": relative_step,
-            "warmup_init": warmup_init,
-            "use_prob_selection": use_prob_selection
+            "warmup_init": warmup_init
         }
         super().__init__(params, defaults)
 
@@ -190,7 +188,7 @@ class Adafactor(Optimizer):
                 # GaLore Projection
                 if "rank" in group:
                     if "projector" not in state:
-                        state["projector"] = GaLoreProjector(group["rank"], update_proj_gap=group["update_proj_gap"], scale=group["scale"], proj_type=group["proj_type"], use_prob_selection=group["use_prob_selection"])
+                        state["projector"] = GaLoreProjector(group["rank"], update_proj_gap=group["update_proj_gap"], scale=group["scale"], proj_type=group["proj_type"])
                     
                     grad = state["projector"].project(grad, state["step"])
 

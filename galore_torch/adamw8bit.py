@@ -6,9 +6,8 @@ from .galore_projector import GaLoreProjector
 
 
 class AdamW8bit(Optimizer2State):
-    def __init__(self, params, lr=1e-3, betas=(0.9, 0.999), eps=1e-8, weight_decay=1e-2, amsgrad=False, optim_bits=32,args=None, min_8bit_size=4096, percentile_clipping=100, block_wise=True, is_paged=False, use_prob_selection=False):
+    def __init__(self, params, lr=1e-3, betas=(0.9, 0.999), eps=1e-8, weight_decay=1e-2, amsgrad=False, optim_bits=32,args=None, min_8bit_size=4096, percentile_clipping=100, block_wise=True, is_paged=False):
         super().__init__( "adam", params, lr, betas, eps, weight_decay, 8, args, min_8bit_size, percentile_clipping, block_wise, is_paged=is_paged)
-        self.use_prob_selection = use_prob_selection
 
     @torch.no_grad()
     def step(self, closure=None):
@@ -43,7 +42,7 @@ class AdamW8bit(Optimizer2State):
                 # GaLore Projection
                 if "rank" in group:
                     if "projector" not in state:
-                        state["projector"] = GaLoreProjector(group["rank"], update_proj_gap=group["update_proj_gap"], scale=group["scale"], proj_type=group["proj_type"], use_prob_selection=group.get("use_prob_selection"))
+                        state["projector"] = GaLoreProjector(group["rank"], update_proj_gap=group["update_proj_gap"], scale=group["scale"], proj_type=group["proj_type"])
                         
                     if 'weight_decay' in group and group['weight_decay'] > 0:
                         # ensure that the weight decay is not applied to the norm grad
