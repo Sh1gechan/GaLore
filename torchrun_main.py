@@ -63,13 +63,15 @@ def parse_args(args):
     parser.add_argument("--name", type=str, default="test")
     parser.add_argument("--grad_clipping", type=float, default=0.0)   
     # beta1 for adafactor
-    parser.add_argument("--beta1", type=float, default=0.0)
+    parser.add_argument("--beta1", type=float, default=0.0) 
     
     # GaLore parameters
     parser.add_argument("--rank", type=int, default=128)
     parser.add_argument("--update_proj_gap", type=int, default=50)
     parser.add_argument("--galore_scale", type=float, default=1.0)
     parser.add_argument("--proj_type", type=str, default="std")
+    # 追加
+    parser.add_argument("--method", type=str, default="probabilistic", choices=["probabilistic", "standard"], help="method to use in get_orthogonal_matrix")  
     
     # disable ddp, single_gpu
     parser.add_argument("--single_gpu", default=False, action="store_true")
@@ -158,7 +160,7 @@ def main(args):
             
     # initialize wandb without config (it is passed later)
     if global_rank == 0:
-        wandb.init(project="galore-c4", name="galore_test")
+        wandb.init(project="galore-c4", name="galore_probabilistic")
         
     logger.info(f"Using dist with rank {global_rank} (only rank 0 will log)")
     logger.info("*" * 40)
@@ -278,7 +280,7 @@ def main(args):
         regular_params = [p for p in model.parameters() if id(p) not in id_galore_params]
         # then call galore_adamw
         param_groups = [{'params': regular_params}, 
-                        {'params': galore_params, 'rank': args.rank, 'update_proj_gap': args.update_proj_gap, 'scale': args.galore_scale, 'proj_type': args.proj_type}]
+                        {'params': galore_params, 'rank': args.rank, 'update_proj_gap': args.update_proj_gap, 'scale': args.galore_scale, 'proj_type': args.proj_type, 'method': args.method}]
         
     # print params and trainable params
     logger.info(f"\n{model}\n")
@@ -338,7 +340,8 @@ def main(args):
         for p in model.parameters():
             if p.requires_grad:
                 if id(p) in id_galore_params:
-                    optimizer_dict[p] = GaLoreAdamW8bit([{'params': [p], 'rank': args.rank, 'update_proj_gap': args.update_proj_gap * 2, 'scale': args.galore_scale, 'proj_type': args.proj_type}], lr=args.lr, weight_decay=args.weight_decay)
+                    optimizer_dict[p] = GaLoreAdamW8bit([{'params': [p], 'rank': args.rank, 'update_proj_gap': args.update_proj_gap * 2, 'scale': args.galore_scale, 'proj_type': args.proj_type, 'method':args.method}], lr=args.lr, weight_decay=args.weight_decay
+                                                        )
                 else:
                     optimizer_dict[p] = bnb.optim.Adam8bit([p], lr=args.lr, weight_decay=args.weight_decay)
 

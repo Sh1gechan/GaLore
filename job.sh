@@ -2,7 +2,7 @@
 #YBATCH -r a100_1
 #SBATCH -N 1
 #SBATCH -J galore
-#SBATCH --time=72:00:00
+#SBATCH --time=168:00:00
 #SBATCH --output outputs/%j.out
 #SBATCH --error errors/%j.err
 
@@ -32,5 +32,6 @@ torchrun --standalone --nproc_per_node 1 torchrun_main.py \
     --dtype bfloat16 \
     --eval_every 1000 \
     --single_gpu \
-    --optimizer galore_adamw8bit_per_layer
+    --optimizer galore_adamw8bit_per_layer \
+    --method probabilistic
     
